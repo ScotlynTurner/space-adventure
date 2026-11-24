@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{.Title}} | Space Adventure</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="site-title" href="/">Space Adventure</a>
+        <nav aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/achievements">Achievements</a>
+        </nav>
+    </header>
+    <main id="main-content">
+        {{block "content" .}}{{end}}
+    </main>
+    <script src="/scripts/app.js" defer></script>
+</body>
+</html>
