@@ -5,20 +5,19 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/ScotlynTurner/space-adventure/internal/store"
 )
 
 type pageData struct {
 	Title string
+	Story *store.StoryNode
 }
 
-// NewServer builds the HTTP routes and serves the app's static assets.
+// NewServer creates the page routes and serves the frontend assets.
 func NewServer() http.Handler {
 	mux := http.NewServeMux()
 	registerRoutes(mux)
-
-	mux.Handle("GET /styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("internal/view/styles"))))
-	mux.Handle("GET /scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("internal/view/scripts"))))
-	mux.Handle("GET /images/", http.StripPrefix("/images/", http.FileServer(http.Dir("static/images"))))
 	return mux
 }
 

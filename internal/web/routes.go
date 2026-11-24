@@ -1,18 +1,26 @@
 package web
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/ScotlynTurner/space-adventure/internal/store"
 )
 
-// registerRoutes connects browser pages and JSON API endpoints.
-// TODO: Add authentication checks to routes that read or update user data.
+// registerRoutes connects the app's pages and static assets.
 func registerRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
 		renderPage(w, "menu.tmpl", pageData{Title: "Space Adventure"})
 	})
 	mux.HandleFunc("GET /story", func(w http.ResponseWriter, r *http.Request) {
-		renderPage(w, "story.tmpl", pageData{Title: "Your Story"})
+		// Temporary sample data lets the story page work before Firestore is connected.
+		story := store.StoryNode{
+			Description: "Your ship's alarm wakes you from cryosleep. Two warning lights flash on the console.",
+			Choices: []store.Choice{
+				{Label: "Check the cockpit", NextNodeID: "cockpit"},
+				{Label: "Investigate the cargo bay", NextNodeID: "cargo-bay"},
+			},
+		}
+		renderPage(w, "story.tmpl", pageData{Title: "Your Story", Story: &story})
 	})
 	mux.HandleFunc("GET /ending", func(w http.ResponseWriter, r *http.Request) {
 		renderPage(w, "ending.tmpl", pageData{Title: "Story Ending"})
@@ -21,18 +29,7 @@ func registerRoutes(mux *http.ServeMux) {
 		renderPage(w, "achievements.tmpl", pageData{Title: "Achievements"})
 	})
 
-	mux.HandleFunc("GET /api/stories", notImplemented("Load story nodes and choices from Firebase."))
-	mux.HandleFunc("GET /api/achievements", notImplemented("Load the signed-in user's achievements from Firebase."))
-}
-
-// notImplemented gives API routes a clear JSON response until their data logic exists.
-func notImplemented(todo string) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		w.WriteHeader(http.StatusNotImplemented)
-		_ = json.NewEncoder(w).Encode(map[string]string{
-			"error": "This endpoint is not implemented yet.",
-			"todo":  todo,
-		})
-	}
+	mux.Handle("GET /styles/", http.StripPrefix("/styles/", http.FileServer(http.Dir("internal/view/styles"))))
+	mux.Handle("GET /scripts/", http.StripPrefix("/scripts/", http.FileServer(http.Dir("internal/view/scripts"))))
+	mux.Handle("GET /images/", http.StripPrefix("/images/", http.FileServer(http.Dir("static/images"))))
 }

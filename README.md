@@ -42,16 +42,16 @@ Then, you can begin again to choose a different course, gaining a new achievemen
 |:---------|:------------------------------------------|:-----:|
 | 11/17/26 | Setup repo, decide on a project and stack |   1   |
 | 11/19/26 | Diagram design and update documentation   |   2   |
-|          | Total                                     |   3   |
+| 11/24/26 | Create foundation server                  |   3   |
+| 11/24/26 | Work on styling                           |   1   |
+|          | Total                                     |   7   |
 
 ### Tasks
-1. Create base layout (2 hours)
-2. Create database with test data (1 hour)
-3. Write backend endpoints (5 hours)
-4. Create pages (3 hours)
-5. Add styling (5 hours)
-6. Add stories, choices, and achievements to db (5 - 10 hours)
-7. Deploy to prd
+1. Add styling (5 hours)
+2. Write backend endpoints (5 hours)
+3. Create database with test data (1 hour)
+4. Add stories, choices, and achievements to db (5 - 10 hours)
+5. Deploy to prd
 
 Additional Features to implement if I have extra time:
 - admin page with ability to change story points in the database

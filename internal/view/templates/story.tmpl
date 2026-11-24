@@ -2,11 +2,26 @@
 <section class="story" aria-labelledby="story-title">
     <p class="eyebrow">Story in progress</p>
     <h1 id="story-title">Your next chapter</h1>
-    <!-- TODO: Render the current story node's text and background image here. -->
-    <p class="placeholder">Story text will be loaded from the database.</p>
-    <div class="choices" aria-label="Story choices">
-        <!-- TODO: Render one form or button per choice; submit the selected choice to the API. -->
-        <button class="button" type="button" disabled>Story choices will appear here</button>
-    </div>
+    {{if .Story}}
+        <p>{{.Story.Description}}</p>
+        {{if .Story.Image}}
+            <img class="story-image" src="{{.Story.Image}}" alt="Story scene">
+        {{else}}
+            <p class="placeholder">Story artwork will go here.</p>
+        {{end}}
+        <div class="choices" aria-label="Story choices">
+            <h2>What do you do?</h2>
+            <ul>
+                {{range .Story.Choices}}
+                    <li><button class="button" type="button" disabled>{{.Label}}</button></li>
+                {{else}}
+                    <li class="placeholder">No choices have been added yet.</li>
+                {{end}}
+            </ul>
+            <!-- TODO: Make each choice load its NextNodeID. -->
+        </div>
+    {{else}}
+        <p class="placeholder">No story node is available.</p>
+    {{end}}
 </section>
 {{end}}

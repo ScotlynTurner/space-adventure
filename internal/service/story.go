@@ -6,3 +6,6 @@ package service
 //   - Load a node by ID through a store interface.
 //   - Validate that a selected choice belongs to the current node.
 //   - Return the next node or indicate that the path has ended.
+
+type StoryService struct {
+}
